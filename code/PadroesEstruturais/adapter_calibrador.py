@@ -26,7 +26,7 @@ class MedidorPressaoPSI:
     pressaoCompleta = 50
     ##  valor em PSI quando o sensor retorna 100%
     
-    pressao = (medicao / 100) * pressaoCompleta
+    pressao = round((medicao / 100) * pressaoCompleta, 2)
     print(f"A pressão é {pressao} Libras")
     return pressao
 
@@ -38,7 +38,7 @@ class MedidorPressaoATM:
   
   def calculaPressao(self) -> float:
     '''
-    Retorna o valor da pressão em Libras
+    Retorna o valor da pressão em ATM
     '''
     medicao = random.randint(0, 100)
     ##  ar contido no Pneu, entre 0 e 100, onde 0 é vazio,
@@ -47,7 +47,7 @@ class MedidorPressaoATM:
     pressaoCompleta = 3.4
     ##  valor em PSI quando o sensor retorna 100%
 
-    pressao = (medicao / 100) * pressaoCompleta
+    pressao = round((medicao / 100) * pressaoCompleta, 2)
     print(f"A pressão é {pressao} ATM")
     return pressao
 
@@ -57,7 +57,7 @@ class AdaptadorMedidorAtm(MedidorPressaoPSI):
 
   def calculaPressao(self):
     pressaoATM = self._medidorATM.calculaPressao()
-    pressaoConvertida = pressaoATM * 14.6959488036
+    pressaoConvertida = round(pressaoATM * 14.6959488036)
 
     print(f"{pressaoATM} ATM em Libras é: {pressaoConvertida}")
     return pressaoConvertida
@@ -72,10 +72,10 @@ class Calibrador:
     self._medidor = medidor
   
   def __liberarAr(self, qtd):
-    print(f"Adicionando {qtd} Libras ...")
+    print(f"Liberando {qtd} Libras ...")
 
   def __adicionarAr(self, qtd):
-    print(f"Liberando {qtd} Libras ...")
+    print(f"Adicionando {qtd} Libras ...")
   
   def calibrar(self, pressaoDesejada: int):
     pressaoAtual = self._medidor.calculaPressao()
